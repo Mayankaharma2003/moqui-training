@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+
+    <service verb="store" noun="MoquiTraining">
+        <in-parameters>
+            <parameter name="trainingId"/>
+            <auto-parameters entity-name="MoquiTraining" include="nonpk"/>
+            <parameter name="trainingName" required="true"/>
+            <parameter name="trainingDate" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="trainingId"  required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-find-one entity-name="MoquiTraining" value-field="isPresent">
+                <field-map field-name="trainingId" from="context.trainingId"/><!--also select parameter.trainingId -->
+            </entity-find-one>
+            <if condition="isPresent==null">
+                <entity-make-value entity-name="MoquiTraining" value-field="moquiTraining"/>
+                <entity-set value-field="moquiTraining" include="all"> </entity-set>
+                <entity-create value-field="moquiTraining" > </entity-create>
+            </if>
+            <if condition="isPresent!=null">
+                <entity-set value-field="isPresent" include="all"/>
+                <entity-update value-field="isPresent"/>
+            </if>
+        </actions>
+    </service>
+</services>

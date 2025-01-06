@@ -1,0 +1,3 @@
+<entity-facade-xml>
+    <MoquiTraining trainingId= "01" trainingName="Advanced AI" trainingDate="2025-02-01" trainingPrice="300.00" trainingDuration="8"/>
+</entity-facade-xml>

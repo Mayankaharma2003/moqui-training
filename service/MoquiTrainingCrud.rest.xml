@@ -1,0 +1,19 @@
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/rest-api-3.xsd"
+          name="example" displayName="Training API" version="1.0.0" description="Services for Customer">
+
+    <resource name="moquiSessionToken" require-authentication="anonymous-all">
+        <method type="get">
+            <service name="MoquiTrainingCrud.MoquiGetService.find#MoquiTraining" />
+        </method>
+        <method type="post">
+            <service name="MoquiTrainingCrud.MoquiCreateService.create#MoquiTraining"/>
+        </method>
+        <id name="trainingId">
+            <method type="get">
+                <entity name="MoquiTraining" operation="one"/>
+            </method>
+        </id>
+    </resource>
+
+</resource>

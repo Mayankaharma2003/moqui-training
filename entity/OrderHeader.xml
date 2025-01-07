@@ -11,7 +11,7 @@
 
         <relationship type="one" related="Party" fk-name="FK_Party_OrderHeader"/>
         <relationship type="one" related="ContactMech" fk-name="FK_ShippingContactMech" >
-            <key-map field-name="shippingContactMechId" related="contactMechId" />
+            <key-map field-name="shippingContactMechId" related="contactMechId"/>
         </relationship>
         <relationship type="one" related="ContactMech" fk-name="FK_BillingContactMech" mutable="true">
             <key-map field-name="billingContactMechId" related="contactMechId" />

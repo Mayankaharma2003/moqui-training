@@ -12,6 +12,7 @@
             <parameter name="trainingId"  required="true"/>
         </out-parameters>
         <actions>
+
             <entity-find-one entity-name="MoquiTraining" value-field="isPresent">
                 <field-map field-name="trainingId" from="context.trainingId"/><!--also select parameter.trainingId -->
             </entity-find-one>

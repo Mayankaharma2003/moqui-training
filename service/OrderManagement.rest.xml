@@ -16,24 +16,24 @@
             <method type="put">
                 <entity name="moqui.order.OrderHeader" operation="update"/>
             </method>
+            <resource name="items" require-authentication="anonymous-all">
+                <method type="post">
+                    <entity name="moqui.order.OrderItem" operation="create"/>
+                </method>
+                <method type="get">
+                    <entity name="moqui.order.OrderItem" operation="one"/>
+                </method>
+                <id name="orderItemSeqId">
+                    <method type="put">
+                        <entity name="moqui.order.OrderItem" operation="update"/>
+                    </method>
+                    <method type="delete">
+                        <entity name="moqui.order.OrderItem" operation="delete"/>
+                    </method>
+                </id>
+            </resource>
 
         </id>
     </resource>
 
 </resource>
-<!--<resource name="items" require-authentication="anonymous-all">-->
-<!--<method type="post">-->
-<!--    <entity name="moqui.order.OrderItem" operation="create"/>-->
-<!--</method>-->
-<!--<method type="get">-->
-<!--    <entity name="moqui.order.OrderItem" operation="one"/>-->
-<!--</method>-->
-<!--<id name="orderItemSeqId">-->
-<!--    <method type="put">-->
-<!--        <entity name="moqui.order.OrderItem" operation="update"/>-->
-<!--    </method>-->
-<!--    <method type="delete">-->
-<!--        <entity name="moqui.order.OrderItem" operation="delete"/>-->
-<!--    </method>-->
-<!--</id>-->
-<!--</resource>-->

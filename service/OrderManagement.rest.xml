@@ -1,0 +1,22 @@
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/rest-api-3.xsd"
+          name="orderheader" displayName="Order Management" version="1.0.0" description="Services for Order Management">
+
+    <resource name="orders" require-authentication="anonymous-all">
+        <method type="post">
+            <entity name="moqui.order.OrderHeader" operation="create"/>
+        </method>
+        <id name="orderId">
+            <method type="get">
+                <entity name="moqui.order.OrderHeader" operation="one"/>
+            </method>
+            <method type="delete">
+                <entity name="moqui.order.OrderHeader" operation="delete"/>
+            </method>
+            <method type="put">
+                <entity name="moqui.order.OrderHeader" operation="update"/>
+            </method>
+        </id>
+    </resource>
+
+</resource>

@@ -1,0 +1,23 @@
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/rest-api-3.xsd"
+          name="orderProduct" displayName="Product Details" version="1.0.0" description="Rest api for product management">
+
+    <resource name="Product" require-authentication="anonymous-all">
+        <method type="post">
+            <entity name="moqui.order.Product" operation="create"/>
+        </method>
+
+        <id name="productId">
+            <method type="get">
+                <entity name="moqui.order.Product" operation="one"/>
+            </method>
+            <method type="delete">
+                <entity name="moqui.order.Product" operation="delete"/>
+            </method>
+            <method type="put">
+                <entity name="moqui.order.Product" operation="update"/>
+            </method>
+        </id>
+    </resource>
+
+</resource>

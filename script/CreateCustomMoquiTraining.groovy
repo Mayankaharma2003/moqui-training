@@ -1,41 +1,34 @@
-import org.moqui.context.ExecutionContext
-import org.moqui.entity.EntityValue
+def trainingRecord = ec.entity.makeValue("moqui.training.MoquiTraining")
 
-// This script assumes it's running in the context of a Moqui service-call
-ExecutionContext ec = context.ec
-
-// Input parameters
+def trainingId=context.trainingId
 def trainingName = context.trainingName
 def trainingDate = context.trainingDate
 def trainingPrice = context.trainingPrice
 def trainingDuration = context.trainingDuration
 
-// Validate required fields
-if (!trainingName) {
+if (!trainingId==null) {
+    ec.message.addError("Training Id is required.")
+    return
+}
+
+if (!trainingName==null) {
     ec.message.addError("Training name is required.")
     return
 }
 
-if (!trainingDate) {
+if (trainingDate==null) {
     ec.message.addError("Training date is required.")
     return
 }
 
-// Explicitly generate a unique ID
-def trainingId = ec.entity.sequencedIdPrimary("MoquiTraining", null, null)
 
-// Create the MoquiTraining entity record
-EntityValue trainingRecord = ec.entity.makeValue("moqui.training.MoquiTraining")
-
-trainingRecord.set("trainingId", trainingId) // Explicitly set trainingId
+trainingRecord.set("trainingId", trainingId)
 trainingRecord.set("trainingName", trainingName)
 trainingRecord.set("trainingDate", trainingDate)
 
 if (trainingPrice != null) trainingRecord.set("trainingPrice", trainingPrice)
 if (trainingDuration != null) trainingRecord.set("trainingDuration", trainingDuration)
 
-// Save the record
 trainingRecord = trainingRecord.create()
 
-// Set the output parameter
 context.trainingId = trainingRecord.get("trainingId")

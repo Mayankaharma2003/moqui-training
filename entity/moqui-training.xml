@@ -9,4 +9,5 @@
         <field name="trainingPrice" type="number-integer"/>
         <field name="trainingDuration" type="number-integer"/>
     </entity>
+
 </entities>

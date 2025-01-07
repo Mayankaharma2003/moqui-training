@@ -1,0 +1,39 @@
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/rest-api-3.xsd"
+          name="orderParty" displayName="Party Management" version="1.0.0" description="Services for Party">
+
+    <resource name="parties" require-authentication="anonymous-all">
+        <method type="post">
+            <entity name="moqui.order.Party" operation="create"/>
+        </method>
+
+        <id name="partyId">
+            <method type="get">
+                <entity name="moqui.order.Party" operation="one"/>
+            </method>
+            <method type="delete">
+                <entity name="moqui.order.Party" operation="delete"/>
+            </method>
+            <method type="put">
+                <entity name="moqui.order.Party" operation="update"/>
+            </method>
+            <resource name="ContactMech" require-authentication="anonymous-all">
+                <method type="post">
+                    <entity name="moqui.order.ContactMech" operation="create"/>
+                </method>
+                <method type="get">
+                    <entity name="moqui.order.ContactMech" operation="one"/>
+                </method>
+                <id name="contactMechId">
+                    <method type="put">
+                        <entity name="moqui.order.ContactMech" operation="update"/>
+                    </method>
+                    <method type="delete">
+                        <entity name="moqui.order.ContactMech" operation="delete"/>
+                    </method>
+                </id>
+            </resource>
+        </id>
+    </resource>
+
+</resource>

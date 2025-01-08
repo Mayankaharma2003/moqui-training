@@ -7,11 +7,13 @@
             <entity name="moqui.order.Party" operation="create"/>
         </method>
 
+
         <id name="partyId">
             <method type="get">
                 <entity name="moqui.order.Party" operation="one"/>
             </method>
             <method type="delete">
+
                 <entity name="moqui.order.Party" operation="delete"/>
             </method>
             <method type="put">

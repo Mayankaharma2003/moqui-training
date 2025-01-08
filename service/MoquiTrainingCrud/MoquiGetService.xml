@@ -3,8 +3,8 @@
 
     <service verb="find" noun="MoquiTraining">
         <in-parameters>
+            <parameter name="trainingId" />
             <parameter name="trainingName" />
-            <parameter name="trainingDate" />
         </in-parameters>
         <out-parameters>
             <parameter name="trainingList"  required="true"/>
@@ -12,13 +12,16 @@
         <actions>
             <if condition="trainingName!=null || trainingDate!=null">
                 <entity-find entity-name="moqui.training.MoquiTraining" list="trainingList">
-                    <econdition field-name="trainingName" ignore-if-empty="true"/>
-                    <econdition field-name="trainingDate" ignore-if-empty="true"/>
+                    <econditions combine="or">
+                        <econdition field-name="trainingId" ignore-if-empty="true"/>
+                        <econdition field-name="trainingName" ignore-if-empty="true"/>
+                    </econditions>
+
                     <select-field field-name="trainingId"/>
                     <select-field field-name="trainingName"/>
                     <select-field field-name="trainingDate"/>
                 </entity-find>
-            </if>
+            </if><then> </then>
             <else>
                 <return error="true" message="Enter training name OR training date"/>
             </else>

@@ -9,7 +9,7 @@
         <field name="quantity" type="number-integer" not-null="true"/>
         <field name="status" type="text-medium"/>
 
-        <relationship type="one" related="OrderHeader"  />
+        <relationship type="one" related="OrderHeader" />
         <relationship type="one" related="Product" fk-name="FK_Product_OrderItem" />
     </entity>
 

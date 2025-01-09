@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+    <service verb="create" noun="OrderHeader" type="inline" >
+        <in-parameters>
+            <parameter name="orderId" required="true"/>
+            <parameter name="orderDate" required="true"/>
+            <parameter name="partyId" required="true"/>
+            <parameter name="shippingContactMechId" required="true"/>
+            <parameter name="billingContactMechId" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="orderId" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-make-value entity-name="OrderHeader" value-field="newOrder"/>
+            <entity-set value-field="newOrder" include="all"/>
+            <entity-create value-field="newOrder" />
+        </actions>
+    </service>
+
+
+    <service verb="update" noun="OrderHeader" type="inline">
+        <in-parameters>
+            <parameter name="orderId" required="true"/>
+            <parameter name="orderDate" required="true"/>
+            <parameter name="partyId" required="true"/>
+            <parameter name="shippingContactMechId" required="false"/>
+            <parameter name="billingContactMechId" required="false"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="orderId"/>
+        </out-parameters>
+        <actions>
+            <entity-find-one entity-name="OrderHeader" value-field="updateOrder">
+                <field-map field-name="orderId" from="context.orderId"/>
+            </entity-find-one>
+            <entity-set value-field="updateOrder" include="all"/>
+            <entity-update value-field="updateOrder" />
+        </actions>
+    </service>
+
+    <service verb="find" noun="OrderHeader" type="inline">
+        <in-parameters>
+            <parameter name="orderId" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="orderHeaderList" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="OrderHeader" list="orderHeaderList">
+                <econdition field-name="orderId"/>
+                <select-field field-name="orderId"/>
+                <select-field field-name="orderDate"/>
+                <select-field field-name="partyId"/>
+                <select-field field-name="shippingContactMechId"/>
+                <select-field field-name="billingContactMechId"/>
+            </entity-find>
+        </actions>
+    </service>
+
+
+    <service verb="delete" noun="OrderHeader" type="inline">
+        <in-parameters>
+            <parameter name="orderId" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="orderId" />
+        </out-parameters>
+        <actions>
+            <entity-find-one entity-name="OrderHeader" value-field="isOrderHeader">
+                <field-map field-name="orderId" from="orderId" />
+            </entity-find-one>
+            <entity-delete-related value-field="isOrderHeader" relationship-name="OrderItem"/>
+            <entity-delete value-field="isOrderHeader"/>
+        </actions>
+    </service>
+
+<!--    <service verb="delete" noun="OrderHeader" >-->
+<!--        <in-parameters>-->
+<!--            <parameter name="partyId" required="false"/>-->
+<!--            <parameter name="contactMechId" required="false"/>-->
+<!--            <parameter name="orderId" required="false"/>-->
+<!--        </in-parameters>-->
+<!--        <out-parameters>-->
+<!--            <parameter name="partyId" required="false"/>-->
+<!--            <parameter name="contactMechId" required="false"/>-->
+<!--            <parameter name="orderId" required="false"/>-->
+<!--        </out-parameters>-->
+<!--        <actions>-->
+<!--            <entity-find entity-name="OrderHeader" list="deleteOrderHeader">-->
+<!--                <econditions combine="or">-->
+<!--                    <econdition field-name="partyId" from="context.partyId" ignore-if-empty="true"/>-->
+<!--                    <econditions combine="or">-->
+<!--                        <econdition field-name="shippingContactMechId" from="context.contactMechId" ignore-if-empty="true"/>-->
+<!--                        <econdition field-name="billingContactMechId" from="context.contactMechId" ignore-if-empty="true"/>-->
+<!--                    </econditions>-->
+<!--                    <econdition field-name="orderId" from="context.orderId" ignore-if-empty="true"/>-->
+<!--                </econditions>-->
+<!--            </entity-find>-->
+<!--            <log message="OrderHeaderService ${deleteOrderHeader}"/>-->
+<!--            <if condition="deleteOrderHeader!=null">-->
+<!--                <iterate list="deleteOrderHeader" entry="OrderMap">-->
+<!--                    <set field="orderId" from="OrderMap.orderId"/>-->
+<!--                    <log message=" my context ${context} ${orderId}"/>-->
+<!--                    <service-call name="OrderManagementService.OrderItemService.delete#OrderItem" in-map="context"/>-->
+<!--                    <log message="again success"/>-->
+<!--                    <entity-delete value-field="OrderMap"/>-->
+<!--                </iterate>-->
+<!--            </if>-->
+<!--        </actions>-->
+<!--    </service>-->
+</services>

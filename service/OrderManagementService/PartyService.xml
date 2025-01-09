@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+
+    <service verb="create" noun="Party" type="inline" >
+        <in-parameters>
+            <parameter name="partyId" required="true"/>
+            <parameter name="partyType" required="true"/>
+            <parameter name="firstName" required="true"/>
+            <parameter name="lastName" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="partyId" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-make-value entity-name="Party" value-field="newParty"/>
+            <entity-set value-field="newParty" include="all"/>
+            <entity-create value-field="newParty" />
+        </actions>
+    </service>
+
+
+    <service verb="update" noun="Party" type="inline">
+        <in-parameters>
+            <parameter name="partyId" required="true"/>
+            <parameter name="partyType" required="true"/>
+            <parameter name="firstName" required="true"/>
+            <parameter name="lastName" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="partyId"/>
+        </out-parameters>
+        <actions>
+            <entity-find-one entity-name="Party" value-field="party">
+                <field-map field-name="partyId" from="context.partyId"/>
+            </entity-find-one>
+            <entity-set value-field="party" include="all"/>
+            <entity-update value-field="party" />
+        </actions>
+    </service>
+
+    <service verb="find" noun="Party" type="inline">
+        <in-parameters>
+            <parameter name="partyId" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="partyList" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="Party" list="partyList">
+                <econdition field-name="partyId"/>
+                <select-field field-name="partyId"/>
+                <select-field field-name="firstName"/>
+                <select-field field-name="lastName"/>
+                <select-field field-name="partyType"/>
+            </entity-find>
+        </actions>
+    </service>
+
+
+
+    <service verb="delete" noun="Party" type="inline">
+        <in-parameters>
+            <parameter name="partyId" />
+        </in-parameters>
+        <out-parameters>
+            <parameter name="partyId" />
+        </out-parameters>
+        <actions>
+            <entity-find-one entity-name="Party" value-field="isParty">
+                <field-map field-name="partyId" from="context.partyId"/>
+            </entity-find-one>
+            <entity-find-one entity-name="OrderHeader" value-field="isOrderHeader">
+                <field-map field-name="partyId" from="context.partyId" />
+            </entity-find-one>
+            <if condition="isOrderHeader != null">
+                <entity-delete-related value-field="isOrderHeader" relationship-name="OrderItem" />
+            </if>
+            <if condition="isParty!=null">
+                <entity-delete-related value-field="isParty" relationship-name="OrderHeader" />
+                <entity-delete-related value-field="isParty" relationship-name="ContactMech" />
+                <entity-delete value-field="isParty"/>
+            </if>
+        </actions>
+    </service>
+
+
+
+</services>
+
+<!--    <service verb="delete" noun="Party" >-->
+<!--        <in-parameters>-->
+<!--            <parameter name="partyId" required="true"/>-->
+<!--        </in-parameters>-->
+<!--        <out-parameters>-->
+<!--            <parameter name="partyId" required="true"/>-->
+<!--        </out-parameters>-->
+<!--        <actions>-->
+<!--            <entity-find-one entity-name="Party" value-field="partyDelete"/>-->
+<!--            <log message="partyService ${partyDelete}"/>-->
+<!--            <if condition="partyDelete!=null">-->
+<!--                <service-call name="OrderManagementService.OrderHeaderService.delete#OrderHeader" in-map="context"/>-->
+<!--                <log message="again again success"/>-->
+<!--                <entity-delete value-field="partyDelete"/>-->
+<!--            </if>-->
+<!--        </actions>-->
+<!--    </service>-->

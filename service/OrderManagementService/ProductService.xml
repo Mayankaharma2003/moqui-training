@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+    <service verb="create" noun="Product" type="inline" >
+        <in-parameters>
+            <parameter name="productId" required="true"/>
+            <parameter name="productName" required="true"/>
+            <parameter name="color" required="true"/>
+            <parameter name="size" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="productId" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-make-value entity-name="Product" value-field="newProduct"/>
+            <entity-set value-field="newProduct" include="all"/>
+            <entity-create value-field="newProduct" />
+        </actions>
+    </service>
+
+
+    <service verb="update" noun="Product" type="inline">
+        <in-parameters>
+            <parameter name="productId" required="true"/>
+            <parameter name="productName" required="true"/>
+            <parameter name="color" required="false"/>
+            <parameter name="size" required="false"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="productId"/>
+        </out-parameters>
+        <actions>
+            <entity-find-one entity-name="Product" value-field="updateProduct">
+                <field-map field-name="productId" from="context.productId"/>
+            </entity-find-one>
+            <entity-set value-field="updateProduct" include="all"/>
+            <entity-update value-field="updateProduct"/>
+        </actions>
+    </service>
+
+    <service verb="find" noun="Product" type="inline">
+        <in-parameters>
+            <parameter name="productId" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="productList" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="Product" list="productList">
+                <econdition field-name="productId"/>
+                <select-field field-name="productId"/>
+                <select-field field-name="productName"/>
+                <select-field field-name="color"/>
+                <select-field field-name="size"/>
+            </entity-find>
+        </actions>
+    </service>
+
+    <service verb="delete" noun="Product">
+        <in-parameters>
+            <parameter name="productId" />
+        </in-parameters>
+        <out-parameters>
+            <parameter name="productId" />
+        </out-parameters>
+        <actions>
+            <entity-find-one entity-name="Product" value-field="isProduct">
+                <field-map field-name="productId" from="context.productId"/>
+            </entity-find-one>
+                <if condition="isProduct!=null">
+                    <entity-delete-related value-field="isProduct" relationship-name="OrderItem" />
+                    <entity-delete value-field="isProduct"/>
+                </if>
+        </actions>
+    </service>
+</services>
+
+
+
+
+<!--    <service verb="delete" noun="Product" >-->
+<!--        <in-parameters>-->
+<!--            <parameter name="productId" required="true"/>-->
+<!--        </in-parameters>-->
+<!--        <out-parameters>-->
+<!--            <parameter name="productId" required="true"/>-->
+<!--        </out-parameters>-->
+<!--        <actions>-->
+<!--            <entity-find-one entity-name="Product" value-field="isProduct">-->
+<!--                <field-map field-name="productId" value="context.productId"/>-->
+<!--            </entity-find-one>-->
+<!--            <if condition="isProduct!=null">-->
+<!--&lt;!&ndash;                <entity-delete-related value-field="productId" relationship-name="OrderItem"/>&ndash;&gt;-->
+<!--                <service-call name="OrderManagementService.OrderItemService.delete#OrderItem" in-map="[productId]"/>-->
+<!--                <entity-delete value-field="isProduct"/>-->
+<!--            </if><then/>-->
+<!--            <else>-->
+<!--                <return error="true" message="contact not found" />-->
+<!--            </else>-->
+<!--        </actions>-->
+<!--    </service>-->

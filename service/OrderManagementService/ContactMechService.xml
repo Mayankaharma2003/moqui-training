@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+
+    <service verb="create" noun="ContactMech" type="inline" >
+        <in-parameters>
+            <parameter name="contactMechId" required="true"/>
+            <parameter name="partyId" required="true"/>
+            <parameter name="streetAddress" required="true"/>
+            <parameter name="city" required="true"/>
+            <parameter name="state" required="true"/>
+            <parameter name="postalCode" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="contactMechId" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-make-value entity-name="ContactMech" value-field="newContactMech"/>
+            <entity-set value-field="newContactMech" include="all"/>
+            <entity-create value-field="newContactMech" />
+        </actions>
+    </service>
+
+    <service verb="update" noun="ContactMech" type="inline">
+        <in-parameters>
+            <parameter name="contactMechId" required="true"/>
+            <parameter name="partyId" required="true"/>
+            <parameter name="streetAddress" required="false"/>
+            <parameter name="city" required="false"/>
+            <parameter name="state" required="false"/>
+            <parameter name="postalCode" required="false"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="contactMechId"/>
+        </out-parameters>
+        <actions>
+            <entity-find-one entity-name="ContactMech" value-field="contactMech">
+                <field-map field-name="contactMechId" from="contactMechId"/>
+            </entity-find-one>
+            <entity-set value-field="contactMech" include="all"/>
+            <entity-update value-field="contactMech" />
+        </actions>
+    </service>
+
+    <service verb="find" noun="ContactMech" type="inline">
+        <in-parameters>
+            <parameter name="contactMechId" required="true"/>
+            <parameter name="partyId" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="contactList" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="ContactMech" list="contactList">
+                <econdition field-name="contactMechId"/>
+                <select-field field-name="contactMechId"/>
+                <select-field field-name="partyId"/>
+                <select-field field-name="streetAddress"/>
+                <select-field field-name="city"/>
+                <select-field field-name="state"/>
+                <select-field field-name="postalCode"/>
+            </entity-find>
+        </actions>
+    </service>
+
+    <service verb="delete" noun="ContactMech" type="inline">
+        <in-parameters>
+            <parameter name="partyId" required="true"/>
+            <parameter name="contactMechId"  required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="partyId" />
+        </out-parameters>
+
+        <actions>
+            <entity-find-one entity-name="ContactMech" value-field="isContactMech">
+                <field-map field-name="partyId" from="context.partyId" />
+                <field-map field-name="contactMechId" from="context.contactMechId" />
+            </entity-find-one>
+            <if condition="isContactMech!=null">
+                <entity-find-related value-field="isContactMech" relationship-name="OrderHeader" list="list" />
+                <if condition="!list">
+                    <entity-delete value-field="isContactMech" />
+                </if>
+                <else>
+                    <return error="true" message="contact not deleted"/>
+                </else>
+            </if>
+        </actions>
+    </service>
+</services>
+
+<!--    <service verb="delete" noun="ContactMech" >-->
+<!--        <in-parameters>-->
+<!--            <parameter name="contactMechId" required="true"/>-->
+<!--        </in-parameters>-->
+<!--        <out-parameters>-->
+<!--            <parameter name="contactMechId" required="true"/>-->
+<!--        </out-parameters>-->
+<!--        <actions>-->
+<!--            <entity-find-one entity-name="ContactMech" value-field="isContactMech">-->
+<!--                <field-map field-name="contactMechId" value="context.contactMechId"/>-->
+<!--            </entity-find-one>-->
+<!--            <if condition="isContactMech!=null">-->
+<!--                <service-call name="OrderManagementService.OrderHeaderService.delete#OrderHeader" in-map="['shippingContactMechId':'context.contactMechId']"/>-->
+<!--                <service-call name="OrderManagementService.OrderHeaderService.delete#OrderHeader" in-map="['billingContactMechId':'context.contactMechId']"/>-->
+<!--                <entity-delete value-field="isContactMech"/>-->
+<!--            </if><then/>-->
+<!--            <else>-->
+<!--                <return error="true" message="contact not found" />-->
+<!--            </else>-->
+<!--        </actions>-->
+<!--    </service>-->

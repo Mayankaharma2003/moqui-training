@@ -1,0 +1,88 @@
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/rest-api-3.xsd"
+          name="orderManagementService" displayName="Order Management Through Services" version="1.0.0" description="Order Management With Service">
+
+    <resource name="parties" require-authentication="anonymous-all">
+        <method type="post">
+            <service name="OrderManagementService.PartyService.create#Party"/>
+        </method>
+        <id name="partyId">
+            <method type="get">
+                <service name="OrderManagementService.PartyService.find#Party"/>
+            </method>
+            <method type="delete">
+                <service name="OrderManagementService.PartyService.delete#Party"/>
+            </method>
+            <method type="put">
+                <service name="OrderManagementService.PartyService.update#Party"/>
+            </method>
+            <resource name="ContactMech">
+                <method type="post">
+                    <service name="OrderManagementService.ContactMechService.create#ContactMech"/>
+                </method>
+                <method type="get">
+                    <service name="OrderManagementService.ContactMechService.find#ContactMech"/>
+                </method>
+                <id name="contactMechId">
+                    <method type="put">
+                        <service name="OrderManagementService.ContactMechService.update#ContactMech"/>
+                    </method>
+                    <method type="delete">
+                        <service name="OrderManagementService.ContactMechService.delete#ContactMech"/>
+                    </method>
+                </id>
+            </resource>
+        </id>
+    </resource>
+
+    <resource name="Product" require-authentication="anonymous-all">
+        <method type="post">
+            <service name="OrderManagementService.ProductService.create#Product"/>
+        </method>
+
+        <id name="productId">
+            <method type="get">
+                <service name="OrderManagementService.ProductService.find#Product"/>
+            </method>
+            <method type="delete">
+                <service name="OrderManagementService.ProductService.delete#Product"/>
+            </method>
+            <method type="put">
+                <service name="OrderManagementService.ProductService.update#Product"/>
+            </method>
+        </id>
+    </resource>
+
+    <resource name="orders" require-authentication="anonymous-all">
+        <method type="post">
+            <service name="OrderManagementService.OrderHeaderService.create#OrderHeader"/>
+        </method>
+        <id name="orderId">
+            <method type="get">
+                <service name="OrderManagementService.OrderHeaderService.find#OrderHeader"/>
+            </method>
+            <method type="delete">
+                <service name="OrderManagementService.OrderHeaderService.delete#OrderHeader"/>
+            </method>
+            <method type="put">
+                <service name="OrderManagementService.OrderHeaderService.update#OrderHeader"/>
+            </method>
+            <resource name="items" require-authentication="anonymous-all">
+                <method type="post">
+                    <service name="OrderManagementService.OrderItemService.create#OrderItem"/>
+                </method>
+            </resource>
+        </id>
+    </resource>
+</resource>
+        <!--                <method type="get">-->
+        <!--                    <service name="OrderManagementService.OrderItemService.find#OrderItems"/>-->
+        <!--                </method>-->
+        <!--                <id name="orderItemSeqId">-->
+        <!--                    <method type="put">-->
+        <!--                        <service name="OrderManagementService.OrderItemService.update#OrderItems"/>-->
+        <!--                    </method>-->
+        <!--&lt;!&ndash;                    <method type="delete">&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <service name="OrderManagementService.OrderItemService.delete#OrderItems"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    </method>&ndash;&gt;-->
+        <!--                </id>-->

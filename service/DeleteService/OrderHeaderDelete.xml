@@ -17,11 +17,11 @@
             <entity-find entity-name="OrderHeader" list="deleteOrderHeader">
                 <econditions combine="or">
                     <econdition field-name="partyId" from="context.partyId" ignore-if-empty="true"/>
+                    <econdition field-name="orderId" from="context.orderId" ignore-if-empty="true"/>
                     <econditions combine="or">
                         <econdition field-name="shippingContactMechId" from="context.contactMechId" ignore-if-empty="true"/>
                         <econdition field-name="billingContactMechId" from="context.contactMechId" ignore-if-empty="true"/>
                     </econditions>
-                    <econdition field-name="orderId" from="context.orderId" ignore-if-empty="true"/>
                 </econditions>
             </entity-find>
             <log message="OrderHeaderService ${deleteOrderHeader}"/>
@@ -30,8 +30,9 @@
                     <set field="orderId" from="OrderMap.orderId"/>
                     <log message=" my context ${context} ${orderId}"/>
                     <service-call name="DeleteService.OrderItemDelete.delete#OrderItem" in-map="context"/>
-                    <log message="again success"/>
+                    <log message="again success ${OrderMap}"/>
                     <entity-delete value-field="OrderMap"/>
+                    <log message="check delete ${OrderMap}"/>
                 </iterate>
             </if>
         </actions>

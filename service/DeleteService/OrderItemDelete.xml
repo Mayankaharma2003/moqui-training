@@ -15,29 +15,29 @@
         </out-parameters>
         <actions>
             <log message="OrderItemService Order Id ${orderId}"/>
-            <entity-find entity-name="OrderItem" list="deleteOrder">
+            <entity-delete-by-condition entity-name="OrderItem">
                 <econditions combine="or">
                     <econdition field-name="orderId" from="orderId" ignore-if-empty="true"/>
                     <econdition field-name="productId" from="productId" ignore-if-empty="true"/>
                     <econdition field-name="orderItemSeqId" from="orderItemSeqId" ignore-if-empty="true"/>
                 </econditions>
-            </entity-find>
-            <!--            <log message="OrderItemService == ${deleteOrder}"/>-->
-            <if condition="deleteOrder!=null">
-                <iterate list="deleteOrder" entry="orderItemSeqId">
-                    <entity-delete value-field="orderItemSeqId."/>
-                </iterate>
-            </if>
-            <!--                <entity-delete-by-condition entity-name="OrderItem">-->
-            <!--                    <econdition field-name="orderId" from="orderId" ignore-if-empty="true"/>-->
+            </entity-delete-by-condition>
+<!--            <entity-find entity-name="OrderItem" list="deleteOrder">-->
+<!--                <econditions combine="or">-->
+<!--                    <econdition field-name="orderId" from="orderId" ignore-if-empty="true"/>-->
+<!--                    <econdition field-name="productId" from="productId" ignore-if-empty="true"/>-->
+<!--                    <econdition field-name="orderItemSeqId" from="orderItemSeqId" ignore-if-empty="true"/>-->
+<!--                </econditions>-->
+<!--            </entity-find>-->
+<!--            <log message="OrderItemService == ${deleteOrder}"/>-->
+<!--            <if condition="deleteOrder!=null">-->
+<!--                <iterate list="deleteOrder" entry="orderItemSeqId">-->
+<!--                    <entity-delete value-field="orderItemSeqId."/>-->
+<!--                </iterate>-->
+<!--            </if>-->
 
-            <!--&lt;!&ndash;                    <econditions combine="or">&ndash;&gt;-->
-            <!--&lt;!&ndash;                        <econdition field-name="productId" from="productId" ignore-if-empty="true"/>&ndash;&gt;-->
-            <!--&lt;!&ndash;                        <econdition field-name="orderItemSeqId" from="orderItemSeqId" ignore-if-empty="true"/>&ndash;&gt;-->
-            <!--&lt;!&ndash;                    </econditions>&ndash;&gt;-->
-            <!--                </entity-delete-by-condition>-->
-            <log message="Success"/>
-            <!--            </if>-->
+
+            <log message="Success OrderItemDelete"/>
         </actions>
     </service>
 

@@ -11,7 +11,7 @@
                 <service name="OrderManagementService.PartyService.find#Party"/>
             </method>
             <method type="delete">
-                <service name="OrderManagementService.PartyService.delete#Party"/>
+                <service name="DeleteService.PartyDelete.delete#Party"/>
             </method>
             <method type="put">
                 <service name="OrderManagementService.PartyService.update#Party"/>
@@ -31,7 +31,7 @@
                         <service name="OrderManagementService.ContactMechService.update#ContactMech"/>
                     </method>
                     <method type="delete">
-                        <service name="OrderManagementService.ContactMechService.delete#ContactMech"/>
+                        <service name="DeleteService.ContactMechDelete.delete#ContactMech"/>
                     </method>
                 </id>
             </resource>
@@ -48,7 +48,7 @@
                 <service name="OrderManagementService.ProductService.find#Product"/>
             </method>
             <method type="delete">
-                <service name="OrderManagementService.ProductService.delete#Product"/>
+                <service name="DeleteService.ProductDelete.delete#Product"/>
             </method>
             <method type="put">
                 <service name="OrderManagementService.ProductService.update#Product"/>

@@ -77,24 +77,4 @@
 
 
 
-<!--    <service verb="delete" noun="Product" >-->
-<!--        <in-parameters>-->
-<!--            <parameter name="productId" required="true"/>-->
-<!--        </in-parameters>-->
-<!--        <out-parameters>-->
-<!--            <parameter name="productId" required="true"/>-->
-<!--        </out-parameters>-->
-<!--        <actions>-->
-<!--            <entity-find-one entity-name="Product" value-field="isProduct">-->
-<!--                <field-map field-name="productId" value="context.productId"/>-->
-<!--            </entity-find-one>-->
-<!--            <if condition="isProduct!=null">-->
-<!--&lt;!&ndash;                <entity-delete-related value-field="productId" relationship-name="OrderItem"/>&ndash;&gt;-->
-<!--                <service-call name="OrderManagementService.OrderItemService.delete#OrderItem" in-map="[productId]"/>-->
-<!--                <entity-delete value-field="isProduct"/>-->
-<!--            </if><then/>-->
-<!--            <else>-->
-<!--                <return error="true" message="contact not found" />-->
-<!--            </else>-->
-<!--        </actions>-->
-<!--    </service>-->
+

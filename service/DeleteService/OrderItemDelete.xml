@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+
+
+    <service verb="delete" noun="OrderItem" >
+        <in-parameters>
+            <parameter name="orderId" required="false"/>
+            <parameter name="productId" required="false"/>
+            <parameter name="orderItemSeqId" required="false"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="orderId" required="false"/>
+            <parameter name="productId" required="false"/>
+            <parameter name="orderItemSeqId" required="false"/>
+        </out-parameters>
+        <actions>
+            <log message="OrderItemService Order Id ${orderId}"/>
+            <entity-find entity-name="OrderItem" list="deleteOrder">
+                <econditions combine="or">
+                    <econdition field-name="orderId" from="orderId" ignore-if-empty="true"/>
+                    <econdition field-name="productId" from="productId" ignore-if-empty="true"/>
+                    <econdition field-name="orderItemSeqId" from="orderItemSeqId" ignore-if-empty="true"/>
+                </econditions>
+            </entity-find>
+            <!--            <log message="OrderItemService == ${deleteOrder}"/>-->
+            <if condition="deleteOrder!=null">
+                <iterate list="deleteOrder" entry="orderItemSeqId">
+                    <entity-delete value-field="orderItemSeqId."/>
+                </iterate>
+            </if>
+            <!--                <entity-delete-by-condition entity-name="OrderItem">-->
+            <!--                    <econdition field-name="orderId" from="orderId" ignore-if-empty="true"/>-->
+
+            <!--&lt;!&ndash;                    <econditions combine="or">&ndash;&gt;-->
+            <!--&lt;!&ndash;                        <econdition field-name="productId" from="productId" ignore-if-empty="true"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;                        <econdition field-name="orderItemSeqId" from="orderItemSeqId" ignore-if-empty="true"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;                    </econditions>&ndash;&gt;-->
+            <!--                </entity-delete-by-condition>-->
+            <log message="Success"/>
+            <!--            </if>-->
+        </actions>
+    </service>
+
+</services>

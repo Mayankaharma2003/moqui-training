@@ -18,59 +18,7 @@
             <entity-create value-field="newOrderItem" />
         </actions>
     </service>
-<!--    <service verb="create" noun="Order">-->
-<!--        <in-parameters>-->
-<!--            <parameter name="orderDate" required="true" type="Date"/>-->
-<!--            <parameter name="quantity" required="true"/>-->
-<!--            <parameter name="status" required="true"/>-->
-<!--            <parameter name="party_id" required="true"/>-->
-<!--            <parameter name="shippingContactMech_id" required="true"/>-->
-<!--            <parameter name="billingMech_id" required="true"/>-->
-<!--            <parameter name="productId" required="true"/>-->
-<!--        </in-parameters>-->
-<!--        <out-parameters>-->
-<!--            <parameter name="orderlist"/>-->
-<!--            <parameter name="itemlist"/>-->
-<!--        </out-parameters>-->
-
-<!--        <actions>-->
-<!--            <entity-make-value entity-name="OrderHeader" value-field="orderlist" />-->
-<!--            <set field="orderlist.orderDate" from="context.orderDate" />-->
-<!--            <set field="orderlist.partyId" from="context.party_id" />-->
-<!--            <set field="orderlist.billingContactMechId" from="context.billingMech_id" />-->
-<!--            <set field="orderlist.shippingContactMechId" from="context.ShippingMech_id" />-->
-<!--            <entity-sequenced-id-primary value-field="orderlist" />-->
-<!--            <entity-create value-field="orderlist" />-->
-
-<!--            <entity-make-value entity-name="moqui.example.OrderItem" value-field="itemlist" />-->
-<!--            <entity-sequenced-id-primary value-field="itemlist" />-->
-<!--            <set field="itemlist.orderId" from="orderlist.orderId" />-->
-<!--            <set field="itemlist.productId" from="context.product_id" />-->
-<!--            <set field="itemlist.quantity" from="context.quantity" />-->
-<!--            <set field="itemlist.status" from="context.status" />-->
-<!--            <entity-create value-field="itemlist" />-->
-<!--        </actions>-->
-<!--    </service>-->
 </services>
-
-<!--        <service verb="create" noun="OrderItem" type="inline" >-->
-<!--        <in-parameters>-->
-<!--            <parameter name="orderItemSeqId" required="true"/>-->
-<!--            <parameter name="orderId" required="true"/>-->
-<!--            <parameter name="productId" required="true"/>-->
-<!--            <parameter name="quantity" required="true"/>-->
-<!--            <parameter name="status" required="true"/>-->
-<!--        </in-parameters>-->
-<!--        <out-parameters>-->
-<!--            <parameter name="orderItemSeqId" required="true"/>-->
-<!--        </out-parameters>-->
-<!--        <actions>-->
-<!--            <entity-make-value entity-name="OrderItem" value-field="newOrderItem"/>-->
-<!--            <entity-set value-field="newOrderItem" include="all"/>-->
-<!--            <entity-create value-field="newOrderItem" />-->
-<!--        </actions>-->
-<!--    </service>-->
-
 
 <!--    <service verb="update" noun="OrderItem" type="inline">-->
 <!--        <in-parameters>-->
@@ -115,41 +63,3 @@
 
 
 
-<!--    <service verb="delete" noun="OrderItem" >-->
-<!--        <in-parameters>-->
-<!--            <parameter name="orderId" required="false"/>-->
-<!--            <parameter name="productId" required="false"/>-->
-<!--            <parameter name="orderItemSeqId" required="false"/>-->
-<!--        </in-parameters>-->
-<!--        <out-parameters>-->
-<!--            <parameter name="orderId" required="false"/>-->
-<!--            <parameter name="productId" required="false"/>-->
-<!--            <parameter name="orderItemSeqId" required="false"/>-->
-<!--        </out-parameters>-->
-<!--        <actions>-->
-<!--            <log message="OrderItemService Order Id ${orderId}"/>-->
-<!--            <entity-find entity-name="OrderItem" list="deleteOrder">-->
-<!--                <econditions combine="or">-->
-<!--                    <econdition field-name="orderId" from="orderId" ignore-if-empty="true"/>-->
-<!--                    <econdition field-name="productId" from="productId" ignore-if-empty="true"/>-->
-<!--                    <econdition field-name="orderItemSeqId" from="orderItemSeqId" ignore-if-empty="true"/>-->
-<!--                </econditions>-->
-<!--            </entity-find>-->
-<!--&lt;!&ndash;            <log message="OrderItemService == ${deleteOrder}"/>&ndash;&gt;-->
-<!--            <if condition="deleteOrder!=null">-->
-<!--                <iterate list="deleteOrder" entry="orderItemSeqId">-->
-<!--                    <entity-delete value-field="orderItemSeqId."/>-->
-<!--                </iterate>-->
-<!--            </if>-->
-<!--&lt;!&ndash;                <entity-delete-by-condition entity-name="OrderItem">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <econdition field-name="orderId" from="orderId" ignore-if-empty="true"/>&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;                    <econditions combine="or">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                        <econdition field-name="productId" from="productId" ignore-if-empty="true"/>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                        <econdition field-name="orderItemSeqId" from="orderItemSeqId" ignore-if-empty="true"/>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    </econditions>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                </entity-delete-by-condition>&ndash;&gt;-->
-<!--            <log message="Success"/>-->
-<!--&lt;!&ndash;            </if>&ndash;&gt;-->
-<!--        </actions>-->
-<!--    </service>-->

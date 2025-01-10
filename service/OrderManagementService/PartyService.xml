@@ -87,20 +87,4 @@
 
 </services>
 
-<!--    <service verb="delete" noun="Party" >-->
-<!--        <in-parameters>-->
-<!--            <parameter name="partyId" required="true"/>-->
-<!--        </in-parameters>-->
-<!--        <out-parameters>-->
-<!--            <parameter name="partyId" required="true"/>-->
-<!--        </out-parameters>-->
-<!--        <actions>-->
-<!--            <entity-find-one entity-name="Party" value-field="partyDelete"/>-->
-<!--            <log message="partyService ${partyDelete}"/>-->
-<!--            <if condition="partyDelete!=null">-->
-<!--                <service-call name="OrderManagementService.OrderHeaderService.delete#OrderHeader" in-map="context"/>-->
-<!--                <log message="again again success"/>-->
-<!--                <entity-delete value-field="partyDelete"/>-->
-<!--            </if>-->
-<!--        </actions>-->
-<!--    </service>-->
+

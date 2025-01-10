@@ -75,38 +75,4 @@
         </actions>
     </service>
 
-<!--    <service verb="delete" noun="OrderHeader" >-->
-<!--        <in-parameters>-->
-<!--            <parameter name="partyId" required="false"/>-->
-<!--            <parameter name="contactMechId" required="false"/>-->
-<!--            <parameter name="orderId" required="false"/>-->
-<!--        </in-parameters>-->
-<!--        <out-parameters>-->
-<!--            <parameter name="partyId" required="false"/>-->
-<!--            <parameter name="contactMechId" required="false"/>-->
-<!--            <parameter name="orderId" required="false"/>-->
-<!--        </out-parameters>-->
-<!--        <actions>-->
-<!--            <entity-find entity-name="OrderHeader" list="deleteOrderHeader">-->
-<!--                <econditions combine="or">-->
-<!--                    <econdition field-name="partyId" from="context.partyId" ignore-if-empty="true"/>-->
-<!--                    <econditions combine="or">-->
-<!--                        <econdition field-name="shippingContactMechId" from="context.contactMechId" ignore-if-empty="true"/>-->
-<!--                        <econdition field-name="billingContactMechId" from="context.contactMechId" ignore-if-empty="true"/>-->
-<!--                    </econditions>-->
-<!--                    <econdition field-name="orderId" from="context.orderId" ignore-if-empty="true"/>-->
-<!--                </econditions>-->
-<!--            </entity-find>-->
-<!--            <log message="OrderHeaderService ${deleteOrderHeader}"/>-->
-<!--            <if condition="deleteOrderHeader!=null">-->
-<!--                <iterate list="deleteOrderHeader" entry="OrderMap">-->
-<!--                    <set field="orderId" from="OrderMap.orderId"/>-->
-<!--                    <log message=" my context ${context} ${orderId}"/>-->
-<!--                    <service-call name="OrderManagementService.OrderItemService.delete#OrderItem" in-map="context"/>-->
-<!--                    <log message="again success"/>-->
-<!--                    <entity-delete value-field="OrderMap"/>-->
-<!--                </iterate>-->
-<!--            </if>-->
-<!--        </actions>-->
-<!--    </service>-->
 </services>

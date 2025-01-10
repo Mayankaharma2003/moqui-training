@@ -17,13 +17,16 @@
                 <service name="OrderManagementService.PartyService.update#Party"/>
             </method>
             <resource name="ContactMech">
-                <method type="post">
-                    <service name="OrderManagementService.ContactMechService.create#ContactMech"/>
-                </method>
+
                 <method type="get">
                     <service name="OrderManagementService.ContactMechService.find#ContactMech"/>
                 </method>
+                <method type="post">
+                    <service name="OrderManagementService.ContactMechService.create#ContactMech"/>
+                </method>
+
                 <id name="contactMechId">
+
                     <method type="put">
                         <service name="OrderManagementService.ContactMechService.update#ContactMech"/>
                     </method>

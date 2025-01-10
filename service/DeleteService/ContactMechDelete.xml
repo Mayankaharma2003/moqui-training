@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+        <service verb="delete" noun="ContactMech" >
+            <in-parameters>
+                <parameter name="contactMechId" required="true"/>
+            </in-parameters>
+            <out-parameters>
+                <parameter name="contactMechId" required="true"/>
+            </out-parameters>
+            <actions>
+                <entity-find-one entity-name="ContactMech" value-field="isContactMech">
+                    <field-map field-name="contactMechId" value="context.contactMechId"/>
+                </entity-find-one>
+                <if condition="isContactMech!=null">
+                    <service-call name="DeleteService.OrderHeaderDelete.delete#OrderHeader" in-map="['shippingContactMechId':'context.contactMechId']"/>
+                    <service-call name="DeleteService.OrderHeaderDeletee.delete#OrderHeader" in-map="['billingContactMechId':'context.contactMechId']"/>
+                    <entity-delete value-field="isContactMech"/>
+                </if><then/>
+                <else>
+                    <return error="true" message="contact not found" />
+                </else>
+            </actions>
+        </service>
+</services>

@@ -12,7 +12,7 @@
                 <entity name="moqui.order.Party" operation="one"/>
             </method>
             <method type="delete">
-                <entity name="moqui.order.Party" operation="delete"/>
+                <service name="DeleteService.PartyDelete.delete#Party"/>
             </method>
             <method type="put">
                 <entity name="moqui.order.Party" operation="update"/>
@@ -29,7 +29,7 @@
                         <entity name="moqui.order.ContactMech" operation="update"/>
                     </method>
                     <method type="delete">
-                        <entity name="moqui.order.ContactMech" operation="delete"/>
+                        <service name="DeleteService.ContactMechDelete.delete#ContactMech"/>
                     </method>
                 </id>
             </resource>
@@ -46,7 +46,7 @@
                 <entity name="moqui.order.Product" operation="one"/>
             </method>
             <method type="delete">
-                <entity name="moqui.order.Product" operation="delete"/>
+                <service name="DeleteService.ProductDelete.delete#Product"/>
             </method>
             <method type="put">
                 <entity name="moqui.order.Product" operation="update"/>
@@ -63,7 +63,7 @@
                 <entity name="moqui.order.OrderHeader" operation="one"/>
             </method>
             <method type="delete">
-                <entity name="moqui.order.OrderHeader" operation="delete"/>
+                <service name="DeleteService.OrderHeaderDelete.delete#OrderHeader"/>
             </method>
             <method type="put">
                 <entity name="moqui.order.OrderHeader" operation="update"/>

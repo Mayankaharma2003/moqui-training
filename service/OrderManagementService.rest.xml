@@ -65,7 +65,7 @@
                 <service name="OrderManagementService.OrderHeaderService.find#OrderHeader"/>
             </method>
             <method type="delete">
-                <service name="OrderManagementService.OrderHeaderService.delete#OrderHeader"/>
+                <service name="DeleteService.OrderHeaderDelete.delete#OrderHeader"/>
             </method>
             <method type="put">
                 <service name="OrderManagementService.OrderHeaderService.update#OrderHeader"/>

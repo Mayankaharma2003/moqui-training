@@ -16,7 +16,7 @@
             <method type="put">
                 <service name="OrderManagementService.PartyService.update#Party"/>
             </method>
-            <resource name="ContactMech">
+            <resource name="contacts">
 
                 <method type="get">
                     <service name="OrderManagementService.ContactMechService.find#ContactMech"/>
@@ -38,7 +38,7 @@
         </id>
     </resource>
 
-    <resource name="Product" require-authentication="anonymous-all">
+    <resource name="Products" require-authentication="anonymous-all">
         <method type="post">
             <service name="OrderManagementService.ProductService.create#Product"/>
         </method>

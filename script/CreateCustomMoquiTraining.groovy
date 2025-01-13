@@ -1,34 +1,16 @@
-def trainingRecord = ec.entity.makeValue("moqui.training.MoquiTraining")
+def createRecord = ec.entity.makeValue("moqui.training.MoquiTraining");
 
-def trainingId=context.trainingId
-def trainingName = context.trainingName
-def trainingDate = context.trainingDate
-def trainingPrice = context.trainingPrice
-def trainingDuration = context.trainingDuration
-
-if (!trainingId==null) {
-    ec.message.addError("Training Id is required.")
+if (context.trainingId==null||context.trainingDate==null||context.trainingName==null) {
+    ec.message.addError("please enter required fields")
     return
 }
-
-if (!trainingName==null) {
-    ec.message.addError("Training name is required.")
-    return
-}
-
-if (trainingDate==null) {
-    ec.message.addError("Training date is required.")
-    return
-}
-
-
-trainingRecord.set("trainingId", trainingId)
-trainingRecord.set("trainingName", trainingName)
-trainingRecord.set("trainingDate", trainingDate)
-
-if (trainingPrice != null) trainingRecord.set("trainingPrice", trainingPrice)
-if (trainingDuration != null) trainingRecord.set("trainingDuration", trainingDuration)
-
-trainingRecord = trainingRecord.create()
-
-context.trainingId = trainingRecord.get("trainingId")
+Map<String, Object> fields = [
+        "trainingId": context.trainingId,
+        "trainingName": context.trainingName,
+        "trainingDate": context.trainingDate,
+        "trainingPrice":context.trainingPrice,
+        "trainingDuration":context.trainingDuration
+]
+createRecord.setAll(fields)
+createRecord = createRecord.create()
+context.trainingId = createRecord.get("trainingId")

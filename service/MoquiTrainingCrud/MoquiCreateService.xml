@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
 
+<!--    <service verb="create" noun="MoquiTraining"-->
+<!--             location="classpath://moqui-training/script/CreateMoquiTrainingJava.java" type="java">-->
+<!--        <in-parameters>-->
+<!--            <parameter name="trainingName" type="String" required="true"/>-->
+<!--            <parameter name="trainingDate" type="String" required="true"/>-->
+<!--            <parameter name="trainingPrice" type="Integer"/>-->
+<!--            <parameter name="trainingDuration" type="Integer"/>-->
+<!--        </in-parameters>-->
+<!--        <out-parameters>-->
+<!--            <parameter name="trainingId"/>-->
+<!--        </out-parameters>-->
+<!--    </service>-->
 
 <!--    <service verb="create" noun="MoquiTraining" type="entity-auto">-->
 <!--        <in-parameters>-->
@@ -13,36 +25,40 @@
 <!--        </out-parameters>-->
 <!--    </service>-->
 
-    <service verb="create" noun="MoquiTraining" type="inline">
-        <in-parameters>
+<!--    <service verb="create" noun="MoquiTraining" type="inline">-->
+<!--        <in-parameters>-->
 
+<!--            <parameter name="trainingId" required="true"/>-->
+<!--            <auto-parameters entity-name="moqui.training.MoquiTraining" include="nonpk"/>-->
+<!--            <parameter name="trainingName" required="true"/>-->
+<!--            <parameter name="trainingDate" required="true" format="dd/MM/yyyy"> </parameter>-->
+<!--        </in-parameters>-->
+<!--        <out-parameters>-->
+<!--            <parameter name="trainingId"/>-->
+<!--        </out-parameters>-->
+<!--        <actions>-->
+<!--            <entity-make-value entity-name="MoquiTraining" value-field="moquiTraining">-->
+<!--            </entity-make-value>-->
+<!--            <entity-set value-field="moquiTraining" include="all"> </entity-set>-->
+<!--            <entity-create value-field="moquiTraining" > </entity-create>-->
+<!--        </actions>-->
+<!--    </service>-->
+
+    <service verb="create" noun="MoquiTraining" type="script"
+             location="component://moqui-training/script/CreateCustomMoquiTraining.groovy">
+        <in-parameters>
             <parameter name="trainingId" required="true"/>
-            <auto-parameters entity-name="moqui.training.MoquiTraining" include="nonpk"/>
             <parameter name="trainingName" required="true"/>
-            <parameter name="trainingDate" required="true" format="dd/MM/yyyy"> </parameter>
+            <parameter name="trainingDate"  required="true"/>
+            <parameter name="trainingPrice" type="Integer" required="false"/>
+            <parameter name="trainingDuration" type="Integer" required="false"/>
         </in-parameters>
         <out-parameters>
             <parameter name="trainingId"/>
         </out-parameters>
-        <actions>
-            <entity-make-value entity-name="MoquiTraining" value-field="moquiTraining">
-            </entity-make-value>
-            <entity-set value-field="moquiTraining" include="all"> </entity-set>
-            <entity-create value-field="moquiTraining" > </entity-create>
-        </actions>
     </service>
 
-<!--    <service verb="create" noun="MoquiTraining" type="script"-->
-<!--             location="component:21489//moqui-training/script/CreateCustomMoquiTraining.groovy">-->
-<!--        <in-parameters>-->
-<!--            <parameter name="trainingName" type="String" required="true"/>-->
-<!--            <parameter name="trainingDate" type="String" required="true"/>-->
-<!--            <parameter name="trainingPrice" type="Integer" required="false"/>-->
-<!--            <parameter name="trainingDuration" type="Integer" required="false"/>-->
-<!--        </in-parameters>-->
-<!--        <out-parameters>-->
-<!--            <parameter name="trainingId" type="String"/>-->
-<!--        </out-parameters>-->
-<!--    </service>-->
+
+
 
 </services>
